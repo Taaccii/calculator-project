@@ -21,13 +21,13 @@ header {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 400px;
-  height: 600px;
+  width: 350px;
+  height: 550px;
   border: 3px solid rgb(28, 27, 28);
   border-radius: 20px;
   background-color: #2b313b;
   box-shadow: rgb(28, 27, 28) 0px 6px;
-  padding: 10px;
+  padding: 14px;
   margin: auto;
 }
 
@@ -37,9 +37,9 @@ header {
   text-align: end;
   padding: 10px;
   color: #1c121a;
-  border: #1c121a 2px solid;
+  border: #1c121a 3px solid;
   border-radius: 10px;
-  background-color: hsla(40, 88%, 68%, 0.894);
+  background-color: #e0ad6c;
 }
 
 .calc-model {
@@ -78,12 +78,71 @@ header {
   color: #1c121a;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  height: 350px;
+  gap: 6px;
+  margin: 10px 0px 5px;
+}
 
+.button-column {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 6px;
+}
 
+.calc-button {
+  flex: 1; 
+  border: 2px solid #1C121A;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 40px;
+  box-shadow: rgb(28, 27, 28) 0px 6px;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background-color: #e5e7eb;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.4s ease-out, box-shadow 0.4s ease-out, background-color 0.2s;
+}
 
+.calc-button:active {
+  transform: translateY(3px) scale(0.95) !important;
+  box-shadow: 1px 1px 2px rgba(65, 62, 62, 0.6);
+  transition: transform 0s;
+  background-color: #cacad7ce !important;
+}
 
+.calc-button.operator:active {
+  background-color: #4a93f297 !important;
+}
 
+.calc-button.equals:active,
+.calc-button.backspace:active {
+  background-color: #e0ae6ca4!important;
+}
 
+.calc-button.operator{
+  background-color: #4a93f2;
+}
+
+.calc-button.equals,
+.calc-button.backspace {
+  background-color: #e0ad6c;
+}
+
+.calc-button.clear {
+  background-color: #c43f24f1
+;
+
+}
+
+.calc-button.clear:active {
+  background-color: #c43f2497!important;
+}
 
 
 
