@@ -125,7 +125,8 @@ header {
   background-color: #e0ae6ca4!important;
 }
 
-.calc-button.operator{
+.calc-button.operator,
+.percent{
   background-color: #4a93f2;
 }
 

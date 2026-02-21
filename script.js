@@ -12,10 +12,13 @@ function divide(a, b) {
   return a / b;
 }
 
+
 let firstNumber = null;
 let operator = null;
 let secondNumber = null;
 let calculated = false;
+let isPercent = false;
+let originalPercent = null;
 
 function operate(operator, firstNumber, secondNumber) {
   switch (operator) {
@@ -66,7 +69,13 @@ buttons.forEach(button => {
     }
 
     if (button.classList.contains('operator')) {
-      if (firstNumber && operator) {
+
+      isPercent = null;
+      originalPercent = null;
+
+      if (calculated) {
+        calculated = false;
+      } else if (firstNumber && operator) {
         secondNumber = +mainDisplay.textContent;
         mainDisplay.textContent = operate(operator, firstNumber, secondNumber);
       }
@@ -77,12 +86,18 @@ buttons.forEach(button => {
     }
 
     if (button.classList.contains('equals')) {
-      secondNumber = +mainDisplay.textContent;
+      secondNumber = isPercent ? firstNumber * +mainDisplay.textContent /100 : +mainDisplay.textContent;
       const rawResult = operate(operator, firstNumber, secondNumber);
       const result = typeof rawResult === 'number' ? parseFloat(rawResult.toFixed(10)) : rawResult;
-      upperDisplay.textContent = `${firstNumber} ${operator} ${secondNumber} = ${result}`;
+
+      upperDisplay.textContent = isPercent
+      ? `${firstNumber} ${operator} ${originalPercent}% = ${result}`
+      : `${firstNumber} ${operator} ${secondNumber} = ${result}`;
+
       mainDisplay.textContent = result;
       calculated = true;
+      isPercent = false;
+      originalPercent = null;
     }
 
     if (button.classList.contains('clear')) {
@@ -94,7 +109,19 @@ buttons.forEach(button => {
     }
 
     if (button.classList.contains('backspace')) {
+      if (mainDisplay.textContent === '0') return
       mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
     }
+
+    if (button.classList.contains('percent')) {
+      if (firstNumber) {
+        originalPercent = +mainDisplay.textContent;
+        upperDisplay.textContent = `${firstNumber} ${operator} ${originalPercent}%`;
+        isPercent = true;
+      } else {
+        mainDisplay.textContent = +mainDisplay.textContent / 100;
+      }
+    }
+
   });
 });
