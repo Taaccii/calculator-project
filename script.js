@@ -1,7 +1,7 @@
 function add(a, b) {
   return a + b;
 }
-function subctract(a, b) {
+function subtract(a, b) {
   return a - b;
 }
 function multiply(a, b) {
@@ -25,7 +25,7 @@ function operate(operator, firstNumber, secondNumber) {
     case '+':
       return add(firstNumber, secondNumber);
     case '-':
-      return subctract(firstNumber, secondNumber);
+      return subtract(firstNumber, secondNumber);
     case '*':
       return multiply(firstNumber, secondNumber);
     case '/':
@@ -36,11 +36,22 @@ function operate(operator, firstNumber, secondNumber) {
 }
 
 function fontSizeSet() {
-  if (mainDisplay.textContent.length > 10) {
-    mainDisplay.style.fontSize = '24px';
+  if (mainDisplay.textContent.length > 15) {
+    mainDisplay.style.fontSize = '22px';
+  } else if (mainDisplay.textContent.length > 10) {
+    mainDisplay.style.fontSize = '30px';
   } else {
     mainDisplay.style.fontSize = '40px';
   }
+  
+  if (upperDisplay.textContent.length > 20) {
+    upperDisplay.style.fontSize = '14px';
+  } else if (upperDisplay.textContent.length > 12) {
+    upperDisplay.style.fontSize = '16px';
+  } else {
+    upperDisplay.style.fontSize = '20px';
+  }
+
 }
 
 const buttons = document.querySelectorAll('button');
@@ -50,16 +61,21 @@ const upperDisplay = document.querySelector('.upper-display')
 
 buttons.forEach(button => {
   button.addEventListener('click', () => {
-    if (mainDisplay.textContent.length >= 18) return;
 
     if (button.classList.contains('number')) {
+      if (mainDisplay.textContent.length >= 18) return;
+
       const digit = button.value;
+      if (digit === '.' && mainDisplay.textContent.includes('.')) return;
 
       if (calculated) {
         mainDisplay.textContent = ''
         calculated = false;
       }
-      if (mainDisplay.textContent === '0') {
+
+      if (digit === '.' && mainDisplay.textContent === '0'){
+        mainDisplay.textContent = '0.';
+      } else if (mainDisplay.textContent === '0') {
         mainDisplay.textContent = digit;
         fontSizeSet();
       } else {
@@ -70,9 +86,10 @@ buttons.forEach(button => {
 
     if (button.classList.contains('operator')) {
 
-      isPercent = null;
+      isPercent = false;
       originalPercent = null;
 
+      // if calculated use the result as firstNumber
       if (calculated) {
         calculated = false;
       } else if (firstNumber && operator) {
@@ -86,15 +103,26 @@ buttons.forEach(button => {
     }
 
     if (button.classList.contains('equals')) {
+      if(!firstNumber || !operator) return;
+      
       secondNumber = isPercent ? firstNumber * +mainDisplay.textContent /100 : +mainDisplay.textContent;
       const rawResult = operate(operator, firstNumber, secondNumber);
-      const result = typeof rawResult === 'number' ? parseFloat(rawResult.toFixed(10)) : rawResult;
+      let result = null;
+
+      if (typeof rawResult === 'number') {
+        result = rawResult;
+      } else if (Number.isInteger(rawResult)) {
+        result = rawResult;
+      } else {
+        result = parseFloat(rawResult.toFixed(10));
+      }
 
       upperDisplay.textContent = isPercent
-      ? `${firstNumber} ${operator} ${originalPercent}% = ${result}`
-      : `${firstNumber} ${operator} ${secondNumber} = ${result}`;
-
+      ? `${firstNumber} ${operator} ${originalPercent}% =`
+      : `${firstNumber} ${operator} ${secondNumber} =`;
+    
       mainDisplay.textContent = result;
+      fontSizeSet();
       calculated = true;
       isPercent = false;
       originalPercent = null;
@@ -106,11 +134,13 @@ buttons.forEach(button => {
       operator = null;
       mainDisplay.textContent = '0'
       upperDisplay.textContent = ''
+      fontSizeSet();
     }
 
     if (button.classList.contains('backspace')) {
       if (mainDisplay.textContent === '0') return
       mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
+      fontSizeSet();
     }
 
     if (button.classList.contains('percent')) {
@@ -119,7 +149,19 @@ buttons.forEach(button => {
         upperDisplay.textContent = `${firstNumber} ${operator} ${originalPercent}%`;
         isPercent = true;
       } else {
-        mainDisplay.textContent = +mainDisplay.textContent / 100;
+        originalPercent = +mainDisplay.textContent;
+        mainDisplay.textContent = originalPercent / 100;
+        upperDisplay.textContent = `${originalPercent}% =`;
+        fontSizeSet();
+      }
+    }
+
+    if (button.classList.contains('sign')) {
+      if(mainDisplay.textContent === '0') return;
+      if(mainDisplay.textContent.startsWith('-')) {
+        mainDisplay.textContent = mainDisplay.textContent.slice(1);
+      } else {
+        mainDisplay.textContent = '-' + mainDisplay.textContent;
       }
     }
 
