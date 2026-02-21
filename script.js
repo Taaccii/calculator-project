@@ -57,6 +57,7 @@ function fontSizeSet() {
 const buttons = document.querySelectorAll('button');
 const mainDisplay = document.querySelector('.main-display');
 const upperDisplay = document.querySelector('.upper-display')
+const display = document.querySelector('.display');
 
 
 buttons.forEach(button => {
@@ -109,20 +110,26 @@ buttons.forEach(button => {
       const rawResult = operate(operator, firstNumber, secondNumber);
       let result = null;
 
-      if (typeof rawResult === 'number') {
+      if (typeof rawResult !== 'number') {
         result = rawResult;
       } else if (Number.isInteger(rawResult)) {
         result = rawResult;
       } else {
         result = parseFloat(rawResult.toFixed(10));
       }
-
+      
       upperDisplay.textContent = isPercent
       ? `${firstNumber} ${operator} ${originalPercent}% =`
       : `${firstNumber} ${operator} ${secondNumber} =`;
     
       mainDisplay.textContent = result;
       fontSizeSet();
+
+      if (typeof result === 'string') {
+        display.classList.add('error');
+        setTimeout(() => display.classList.remove('error'), 1500);
+      }
+      
       calculated = true;
       isPercent = false;
       originalPercent = null;
@@ -166,4 +173,9 @@ buttons.forEach(button => {
     }
 
   });
+});
+
+document.addEventListener('keydown', (e) => {
+  const button = document.querySelector(`button[value="${e.key}"]`);
+  if (button) button.click();
 });

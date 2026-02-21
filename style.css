@@ -5,19 +5,26 @@
 body {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Share Tech Mono', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   min-height: 100vh;
   background-color: #1f2937;
 }
 
 header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px hsl(40, 88%, 68%) solid;
+  font-family: 'Share Tech Mono', sans-serif;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-align: center;
+  width: 100%;
+  border-bottom: 1px solid #e0ad6c30;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   font-weight: bold;
-  color: hsl(40, 88%, 68%);
+  color: #e0ad6c;
+  box-shadow: rgb(28, 27, 28) 0px 7px 15px 7px;
 }
 
 .calculator {
@@ -59,6 +66,11 @@ header {
   border-radius: 8px;
   background-color: #A4B4CD;
   box-shadow: inset 0px 2px 3px 2px;
+  transition: background-color 0.3s ease;
+}
+
+.display.error {
+  background-color: #c43f24;
 }
 
 .upper-display {
