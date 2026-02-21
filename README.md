@@ -4,7 +4,7 @@ A fully functional calculator built with vanilla HTML, CSS, and JavaScript as pa
 
 ## Live Demo
 
-[View Project](#) 
+[View Project](https://taaccii.github.io/calculator-project/) 
 
 ## Features
 
