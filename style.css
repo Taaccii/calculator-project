@@ -126,7 +126,9 @@ header {
   -webkit-tap-highlight-color: transparent;
   -webkit-font-smoothing: antialiased;
   transition: transform 0.3s ease-out, box-shadow 0.3s ease-out, background-color 0.2s;
-  color: inherit;
+  color: #1c121a;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .calc-button:active {
