@@ -106,7 +106,13 @@ buttons.forEach(button => {
     if (button.classList.contains('equals')) {
       if(!firstNumber || !operator) return;
       
-      secondNumber = isPercent ? firstNumber * +mainDisplay.textContent /100 : +mainDisplay.textContent;
+
+      if (!calculated) {
+        secondNumber = isPercent ? firstNumber * +mainDisplay.textContent /100 : +mainDisplay.textContent;
+      } else {
+        firstNumber = +mainDisplay.textContent;
+      }
+      
       const rawResult = operate(operator, firstNumber, secondNumber);
       let result = null;
 
@@ -146,7 +152,7 @@ buttons.forEach(button => {
 
     if (button.classList.contains('backspace')) {
       if (mainDisplay.textContent === '0') return
-      mainDisplay.textContent = mainDisplay.textContent.slice(0, -1);
+      mainDisplay.textContent = mainDisplay.textContent.slice(0, -1) || '0';
       fontSizeSet();
     }
 
