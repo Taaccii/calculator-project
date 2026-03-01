@@ -1,10 +1,12 @@
 # T-3000 Calculator
 
+![Calculator T-3000](./calculator-preview.png)
+
 A fully functional calculator built with vanilla HTML, CSS, and JavaScript as part of [The Odin Project](https://www.theodinproject.com/lessons/foundations-calculator) Foundations curriculum.
 
 ## Live Demo
 
-[View Project](https://taaccii.github.io/calculator-project/) 
+[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://taaccii.github.io/calculator-project/)
 
 ## Features
 
