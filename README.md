@@ -6,7 +6,7 @@ A fully functional calculator built with vanilla HTML, CSS, and JavaScript as pa
 
 ## Live Demo
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-blue)](https://taaccii.github.io/calculator-project/)
+[→ View Project](https://taaccii.github.io/calculator-project/)
 
 ## Features
 
